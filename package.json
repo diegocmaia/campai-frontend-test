@@ -1,0 +1,30 @@
+{
+  "name": "campai-frontend-test",
+  "version": "1.0.0",
+  "description": "Frontend challenge for campai role as fullstack developer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegocmaia/campai-frontend-test.git"
+  },
+  "author": "Diego Maia",
+  "license": "MIT",
+  "scripts": {
+    "start": "REACT_APP_ENV=local react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "avataaars": "^1.1.0",
+    "isomorphic-fetch": "^2.2.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-scripts": "^1.1.4",
+    "react-select": "^1.2.1",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0",
+    "styled-components": "^3.2.6"
+  }
+}
