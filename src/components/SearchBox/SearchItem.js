@@ -12,13 +12,15 @@ const StyledTitleWrapper = styled.div`
   display: flex;
 `
 
+const StyledAvatar = styled.div`
+`
+
 const SearchItem = ({ hasAvatar, item }) => {
-  console.log(item)
   return (
     <StyledWrapper>
       {
         hasAvatar
-        ? <div>{item.title.substring(0, 1)}</div>
+        ? <StyledAvatar>{item.title.substring(0, 1)}</StyledAvatar>
         : <Avatar avatarStyle='Circle'
                   topType={item.avatar.top_type} 
                   eyeType={item.avatar.eye_type}
@@ -32,7 +34,7 @@ const SearchItem = ({ hasAvatar, item }) => {
         <span>{item.title}</span>
         <span>{item.subtitle}</span>
       </StyledTitleWrapper>
-      <span>{item.rightText}</span>
+      <span>{item.info}</span>
     </StyledWrapper>
   )
 }
@@ -42,7 +44,7 @@ SearchItem.propTypes = {
   item: PropTypes.shape({
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
-    leftText: PropTypes.string.isRequired
+    info: PropTypes.string.isRequired
   }).isRequired,
 }
 

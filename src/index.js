@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import thunk from 'redux-thunk'
+import promiseMiddleware from 'redux-promise-middleware'
 import { Provider } from 'react-redux'
 import { injectGlobal } from 'styled-components'
 import { createStore, applyMiddleware, compose } from 'redux'
@@ -29,7 +30,7 @@ injectGlobal`
 const store = createStore(
   rootReducer,
   composeEnhancers(
-    applyMiddleware(thunk)
+    applyMiddleware(thunk, promiseMiddleware())
   )
 )
 

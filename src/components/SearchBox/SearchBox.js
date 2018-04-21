@@ -1,4 +1,5 @@
 import React from 'react'
+import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
 import _ from 'lodash'
 
@@ -96,71 +97,37 @@ const StyledDropdownItem = styled.li`
   }
 `
 
-export default class SearchBox extends React.Component {
-  render () {
-    return (
-      <StyledWrapper>
-        <StyledSelector>
-          <StyledDropdown>
-            <StyledInput />
-            <StyledDropdownList>
-              {
-                _.map(dataSel.contacts, (i, key) => (
-                  <StyledDropdownItem>
-                    <SearchItem key hasAvatar={!_.isEmpty(i.avatar)} item={i} />
-                  </StyledDropdownItem>
-                ))
+const SearchBox = ({ entities, onChangeSearchText }) => (
+  <StyledWrapper>
+    <StyledSelector>
+      <StyledDropdown>
+        <StyledInput onChange={onChangeSearchText}/>
+        <StyledDropdownList>
+          {
+            _.map(entities.contacts, (entity, key) => {
+              const listItem = {
+                title: entity.full_name,
+                subtitle: entity.city,
+                info: entity.org_name,
+                avatar: entity.avatar
               }
-              <StyledDropdownItem />
-            </StyledDropdownList>
-          </StyledDropdown>
-        </StyledSelector>
-      </StyledWrapper>
-    )
-  }
+              return (
+                <StyledDropdownItem key>
+                  <SearchItem key={entity.full_name} hasAvatar={!_.isEmpty(entity.avatar)} item={listItem} />
+                </StyledDropdownItem>
+              )
+            })
+          }
+          <StyledDropdownItem />
+        </StyledDropdownList>
+      </StyledDropdown>
+    </StyledSelector>
+  </StyledWrapper>
+)
+
+SearchBox.propTypes = {
+  entities: PropTypes.object,
+  onChangeSearchText: PropTypes.func.isRequired
 }
 
-
-
-
-// const SearchBy = ({currentFilter, filterTypes, isDropdownOpen=false, placeholder, onItemSelect, toggleDropdown, onSearchSubmit= (() => {}), onChange, onFocus}) => {
-//     filterTypes = filterTypes.filter(filter => filter.value !== currentFilter.value );
-
-//     return (
-//         <div className="search-by">
-//             <div className="search-by__selector">
-//                 <div className="search-by__current" onClick={toggleDropdown}>
-//                     { currentFilter.label }
-//                     <img src={IcoArrowDown} />
-//                 </div>
-//                 <div className={'search-by__dropdown ' + (isDropdownOpen ? 'search-by__dropdown--open': '')}>
-//                     <ul className="search-by__dropdown-list">
-//                         {
-//                             filterTypes.map((filter) => (
-//                                 <li key={filter.value}
-//                                     onClick={() => onItemSelect(filter) }
-//                                     className="search-by__dropdown-item">{filter.label}</li>
-//                             ))
-//                         }
-//                     </ul>
-//                 </div>
-//             </div>
-//             <input className="search-by__input react-autosuggest__input"
-//                    onKeyPress={e => e.keyCode === 13 || e.which === 13 ? onSearchSubmit(e.target.value) : null }
-//                    onChange={onChange && (e => onChange(e.target.value))}
-//                    onFocus={onFocus && (e => onFocus(e.target.value))}
-//                    onBlur={(e) => onSearchSubmit(e.target.value)}
-//                    placeholder={placeholder}/>
-//         </div>
-//     );
-// }
-
-// SearchBy.propTypes = {
-//     currentFilter: PropTypes.object.isRequired,
-//     filterTypes: PropTypes.array.isRequired,
-//     isDropdownOpen: PropTypes.bool,
-//     placeholder: PropTypes.string,
-//     onItemSelect: PropTypes.func
-// };
-
-// export default SearchBy;
+export default SearchBox

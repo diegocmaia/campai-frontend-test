@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux'
 
-import entitiesReducer from './modules/search'
+import search from './modules/search'
 
-const rootReducer = combineReducers({
-  entities: entitiesReducer
-})
+const rootReducer = combineReducers({search})
 
 export default rootReducer

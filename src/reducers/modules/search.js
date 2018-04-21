@@ -7,24 +7,19 @@ export const constants = {
 
 export const actions = {
   searchEntities (text) {
-    return dispatch => (
-      dispatch({
-        type: constants.SEARCH_ENTITIES,
-        payload: {
-          promise: http.get(`${config.API_BASE_URL}/search?text=${text}`).then(response => (action, dispatch) => {
-            const payload = { entities: response }
-            dispatch({...action, payload})
-          })
-        }
-      })
-    )
+    return {
+      type: constants.SEARCH_ENTITIES,
+      payload: {
+        promise: http.get(`${config.API_BASE_URL}/search?text=${text}`)
+        .then(response => ({ entities: response }))
+      }
+    }
   }
 }
 
 const ACTION_HANDLERS = {
   SEARCH_ENTITIES_FULFILLED: (state, action) => {
     const { entities } = action
-
     return {
       ...state,
       entities,
