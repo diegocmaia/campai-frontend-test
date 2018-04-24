@@ -1,8 +1,9 @@
 import http from '../utils/http'
 import config from '../../config'
 
-export const constants = {
-  SEARCH_ENTITIES: 'SEARCH_ENTITIES'
+const constants = {
+  SEARCH_ENTITIES: 'SEARCH_ENTITIES',
+  CLEAR_RESULTS: 'CLEAR_RESULTS'
 }
 
 export const actions = {
@@ -14,15 +15,27 @@ export const actions = {
         .then(response => ({ entities: response }))
       }
     }
+  },
+
+  clearResults () {
+    return {
+      type: constants.CLEAR_RESULTS
+    }
   }
 }
 
 const ACTION_HANDLERS = {
+  CLEAR_RESULTS: state => {
+    return initialState
+  },
+
   SEARCH_ENTITIES_FULFILLED: (state, action) => {
     const { entities } = action
+
     return {
       ...state,
       entities,
+      isExpanded: true,
       isLoading: false
     }
   },
@@ -44,6 +57,7 @@ const ACTION_HANDLERS = {
 
 export const initialState = {
   entities: {},
+  isExpanded: false,
   isLoading: false
 }
 

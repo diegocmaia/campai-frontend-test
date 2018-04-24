@@ -6,7 +6,7 @@ import _ from 'lodash'
 import SearchItem from './SearchItem'
 
 const StyledWrapper = styled.div`
-  display: flex;
+  display: ${props => props.isVisible ? 'flex' : 'none'};
   flex-direction: column;
 `
 
@@ -34,9 +34,9 @@ const StyledFooterText = styled.span`
   color: #ababab;
 `
 
-const SearchList = ({ title, items }) => {
+const SearchList = ({ title, isVisible, items }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper isVisible={isVisible}>
       <StyledTitle>{title}</StyledTitle>
       {
         _.map(items.data, (item, key) => (

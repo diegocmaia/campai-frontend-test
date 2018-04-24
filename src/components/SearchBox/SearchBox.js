@@ -35,25 +35,38 @@ const StyledResultBox = styled.div`
   overflow: scroll;
 `
 
-const SearchBox = ({ entities, onChangeSearchText }) => (
+const StyledInfoText = styled.span`
+  padding-top: 10px;
+  padding-left: 20px;
+  font-size: 110%;
+  font-style: italic;
+  color: #ababab;
+`
+
+const SearchBox = ({ entities, isExpanded, onChangeSearchText }) => (
   <StyledWrapper>
     <StyledInput onChange={onChangeSearchText}></StyledInput>
-    <StyledResultBox>
-      {
-        !_.isEmpty(entities)
-        ? <div>
-            <SearchList title="Orgs" items={entities.orgs}></SearchList>
-            <SearchList title="Contacts" items={entities.contacts}></SearchList>
-            <SearchList title="Groups" items={entities.groups}></SearchList>
-          </div>
-        : null
-      }
-    </StyledResultBox>
+    {
+      isExpanded
+      ? <StyledResultBox>
+          {
+            !_.isEmpty(entities) && (!_.isEmpty(entities.orgs.data) || !_.isEmpty(entities.contacts.data) || !_.isEmpty(entities.groups.data))
+            ? <div>
+                <SearchList isVisible={!_.isEmpty(entities.orgs.data)} title="Orgs" items={entities.orgs}></SearchList>
+                <SearchList isVisible={!_.isEmpty(entities.contacts.data)} title="Contacts" items={entities.contacts}></SearchList>
+                <SearchList isVisible={!_.isEmpty(entities.groups.data)} title="Groups" items={entities.groups}></SearchList>
+              </div>
+            : <StyledInfoText>No results</StyledInfoText>
+          }
+        </StyledResultBox>
+      : null
+    }
   </StyledWrapper>
 )
 
 SearchBox.propTypes = {
   entities: PropTypes.object,
+  isExpanded: PropTypes.bool.isRequired,
   onChangeSearchText: PropTypes.func.isRequired
 }
 

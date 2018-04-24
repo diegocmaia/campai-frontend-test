@@ -48,7 +48,6 @@ const StyledInfo = styled.span`
 `
 
 const SearchItem = ({ hasAvatar, item }) => {
-  console.log(item)
   return (
     <StyledWrapper>
       {
@@ -77,7 +76,7 @@ SearchItem.propTypes = {
   hasAvatar: PropTypes.bool.isRequired,
   item: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string.isRequired,
+    subtitle: PropTypes.string,
     info: PropTypes.string.isRequired
   }).isRequired,
 }

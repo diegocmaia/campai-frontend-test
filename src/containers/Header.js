@@ -7,6 +7,7 @@ import { actions as searchActions } from '../reducers/modules/search'
 
 const mapStateToProps = (state, props) => ({
   isLoading: state.search.isLoading,
+  isExpanded: state.search.isExpanded,
   entities: state.search.entities
 })
 
