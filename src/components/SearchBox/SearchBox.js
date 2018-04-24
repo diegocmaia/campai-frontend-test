@@ -43,9 +43,9 @@ const StyledInfoText = styled.span`
   color: #ababab;
 `
 
-const SearchBox = ({ entities, isExpanded, onChangeSearchText }) => (
+const SearchBox = ({ entities, isExpanded, showError, onChangeSearchText }) => (
   <StyledWrapper>
-    <StyledInput onChange={onChangeSearchText}></StyledInput>
+    <StyledInput placeholder="Type for search..." onChange={onChangeSearchText}></StyledInput>
     {
       isExpanded
       ? <StyledResultBox>
@@ -67,6 +67,7 @@ const SearchBox = ({ entities, isExpanded, onChangeSearchText }) => (
 SearchBox.propTypes = {
   entities: PropTypes.object,
   isExpanded: PropTypes.bool.isRequired,
+  showError: PropTypes.bool.isRequired, // We can use it to display an error message using a Notification Bubble
   onChangeSearchText: PropTypes.func.isRequired
 }
 

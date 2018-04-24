@@ -28,6 +28,7 @@ export default class Header extends React.Component {
     const { searchActions } = this.props
     if (!_.isEmpty(text)) {
       searchActions.searchEntities(text)
+        .catch(err => searchActions.showError())
     } else {
       searchActions.clearResults()
     }
@@ -50,14 +51,17 @@ export default class Header extends React.Component {
   }
 
   render () {
-    const { entities, isLoading, isExpanded } = this.props
+    const { entities, isLoading, isExpanded, showError } = this.props
     const searchResult = !_.isEmpty(entities) ? this.mapEntitiesToSearchObj(entities) : {}
 
     return (
       <StyledWrapper>
         <LoadingModal isLoading={isLoading} />
         <StyledLogo alt="Logo" src="/assets/campai_logo.svg" />
-        <SearchBox isExpanded={isExpanded} entities={searchResult} onChangeSearchText={e => this.onChangeSearchText(e.target.value)} />
+        <SearchBox showError={showError} 
+          isExpanded={isExpanded}
+          entities={searchResult}
+          onChangeSearchText={e => this.onChangeSearchText(e.target.value)} />
         {/* Dummy */}
         <span>Startseite</span>
         <span><span style={{color:'#ca3670'}}>14</span> Benachrichrigungen</span>

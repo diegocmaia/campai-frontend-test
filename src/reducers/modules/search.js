@@ -3,7 +3,8 @@ import config from '../../config'
 
 const constants = {
   SEARCH_ENTITIES: 'SEARCH_ENTITIES',
-  CLEAR_RESULTS: 'CLEAR_RESULTS'
+  CLEAR_RESULTS: 'CLEAR_RESULTS',
+  SHOW_ERROR: 'SHOW_ERROR'
 }
 
 export const actions = {
@@ -21,12 +22,26 @@ export const actions = {
     return {
       type: constants.CLEAR_RESULTS
     }
+  },
+
+  showError () {
+    return {
+      type: constants.SHOW_ERROR
+    }
   }
 }
 
 const ACTION_HANDLERS = {
   CLEAR_RESULTS: state => {
     return initialState
+  },
+
+  SHOW_ERROR: state => {
+    return {
+      ...state,
+      isLoading: false,
+      showError: true
+    }
   },
 
   SEARCH_ENTITIES_FULFILLED: (state, action) => {
@@ -36,21 +51,24 @@ const ACTION_HANDLERS = {
       ...state,
       entities,
       isExpanded: true,
-      isLoading: false
+      isLoading: false,
+      showError: false
     }
   },
 
   SEARCH_ENTITIES_PENDING: state => {
     return {
       ...state,
-      isLoading: true
+      isLoading: true,
+      showError: false
     }
   },
 
   SEARCH_ENTITIES_CANCELED: state => {
     return {
       ...state,
-      isLoading: false
+      isLoading: false,
+      showError: false
     }
   }
 }
@@ -58,7 +76,8 @@ const ACTION_HANDLERS = {
 export const initialState = {
   entities: {},
   isExpanded: false,
-  isLoading: false
+  isLoading: false,
+  showError: false
 }
 
 export default function (state = initialState, action) {
